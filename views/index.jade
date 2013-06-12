@@ -1,0 +1,21 @@
+doctype 5
+html
+ head
+  link(rel='stylesheet', href='/stylesheets/style.css')
+  script(src="/socket.io/socket.io.js",type="text/javascript")
+  script(type="text/javascript")
+   var socket = io.connect('/');
+   socket.on('msg', function (data) {
+    document.getElementById("message").innerHTML += data.date + "  " + data.message + "<br>";
+   });
+ 
+   function submit(){
+     var message = document.getElementById("msg").value;
+     socket.emit("msg",{message : message});
+     document.getElementById("msg").value = "";
+   }
+ body
+  input(name='msg')#msg
+  button(onclick='submit()') Submit
+  hr
+  #message
